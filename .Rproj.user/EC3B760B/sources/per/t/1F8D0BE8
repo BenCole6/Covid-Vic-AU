@@ -1,0 +1,32 @@
+{
+    "id": "1F8D0BE8",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1596782842501.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "expression": "combined_lga_df",
+        "caption": "combined_lga_df",
+        "totalObservations": 152410,
+        "displayedObservations": 152410,
+        "variables": 8,
+        "cacheKey": "51B83B62",
+        "object": "combined_lga_df",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=combined_lga_df&cache_key=51B83B62&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 7378126961491337060,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1596782842501,
+    "read_only": false,
+    "read_only_alternatives": []
+}
