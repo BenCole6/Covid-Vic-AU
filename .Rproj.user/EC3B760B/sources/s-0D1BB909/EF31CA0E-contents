@@ -1,0 +1,16 @@
+boroondara_coords <- filter(combined_lga_df, str_detect(LGA, "boroondara"))[1:2]
+
+boroondara_poly_cords <- filter(cases_by_LGA_poly, str_detect(LGA, "boroondara"))[1:2]
+
+boroondara_poly_cords[1,] %in% boroondara_coords
+
+sapply(boroondara_poly_cords, unique) %>% 
+  sapply(sort)
+
+
+distinct(cases_by_LGA_poly,
+         long, lat, order, LGA, DATE, ACTIVE) %>% 
+  nrow() / nrow(cases_by_LGA_poly)
+
+formatC(combined_lga_df$lat
+
