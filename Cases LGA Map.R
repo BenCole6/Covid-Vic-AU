@@ -50,7 +50,7 @@ for(lga in lgacases_dataframes) {
                                 "\\-|\\_", replacement = " ")
   lga_name <- str_trim(lga_name)
   
-  if(nrow(get(lga)) >0){
+  if(nrow(get(lga)) > 0){
     
     lga_temp <- cbind(get(lga),
                       LGA = lga_name)
@@ -96,12 +96,20 @@ gg_Vic_cases_by_LGA <- ggplot(cases_by_LGA_poly,
   theme(text = element_text(family = "Arial Nova"),
         plot.title = element_text(face = "bold", size = 14))
 
-animate(gg_Vic_cases_by_LGA,
-        height = 750, width = 750)
+plot_frames <- length(unique(cases_by_LGA_poly$DATE))
+frames_ps <- 3
 
-anim_save("Vic Cases by LGA.gif",
-          nframes = length(unique(cases_by_LGA_df$DATE)),
-          fps = 2)
+total_frames <- ((plot_frames %/% frames_ps) + 5) * frames_ps
+
+end_frames <- total_frames - plot_frames
+
+animate(gg_Vic_cases_by_LGA,
+        height = 750, width = 750,
+        nframes = total_frames,
+        fps = 3,
+        end_pause = end_frames)
+
+anim_save("Vic Cases by LGA.gif")
 
 gg_MelbMetro_cases_by_LGA <- ggplot(cases_by_LGA_poly,
                                     aes(x = long, y = lat,
@@ -130,11 +138,11 @@ gg_MelbMetro_cases_by_LGA <- ggplot(cases_by_LGA_poly,
         plot.title = element_text(face = "bold", size = 14))
 
 animate(gg_MelbMetro_cases_by_LGA,
-        height = 750, width = 750)
+        height = 750, width = 750,
+        nframes = total_frames,
+        fps = 3,
+        end_pause = end_frames)
 
-anim_save("cases by lga greater metro.gif",
-          frames = length(unique(cases_by_LGA_poly$DATE)),
-          fps = 1,
-          end_pause = 30)
+anim_save("cases by lga greater metro.gif")
 
 beep(8)
