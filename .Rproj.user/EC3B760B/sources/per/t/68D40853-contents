@@ -66,11 +66,12 @@ cases_by_LGA_poly <- left_join(combined_lga_df,
 
 cases_by_LGA_poly$DATE <- paste(cases_by_LGA_poly$DATE, "2020")
 
-cases_by_LGA_poly$DATE <- as_date(dmy(cases_by_LGA_poly$DATE),
-                                  format = "%d - %m - %Y")
+cases_by_LGA_poly$DATE <- dmy(cases_by_LGA_poly$DATE)
 
 cases_by_LGA_poly <- filter(cases_by_LGA_poly,
                             !is.na(DATE))
+
+cases_by_LGA_poly$ACTIVE <- replace_na(cases_by_LGA_poly$ACTIVE, 0)
 
 gg_Vic_cases_by_LGA <- ggplot(cases_by_LGA_poly,
                               aes(x = long, y = lat,
@@ -93,8 +94,9 @@ gg_Vic_cases_by_LGA <- ggplot(cases_by_LGA_poly,
   coord_equal() +
   transition_time(DATE) +
   theme_void() +
-  theme(text = element_text(family = "Arial Nova"),
-        plot.title = element_text(face = "bold", size = 14))
+  theme(text = element_text(family = "Arial Nova",
+                            size = 14),
+        plot.title = element_text(face = "bold", size = 18))
 
 plot_frames <- length(unique(cases_by_LGA_poly$DATE))
 frames_ps <- 3
@@ -106,7 +108,7 @@ end_frames <- total_frames - plot_frames
 animate(gg_Vic_cases_by_LGA,
         height = 750, width = 750,
         nframes = total_frames,
-        fps = 3,
+        fps = frames_ps,
         end_pause = end_frames)
 
 anim_save("Vic Cases by LGA.gif")
@@ -130,19 +132,20 @@ gg_MelbMetro_cases_by_LGA <- ggplot(cases_by_LGA_poly,
                        "LGA Shape files:  data.vic.gov.au",
                        "",
                        "github.com/BenCole6/Covid-Vic-AU")) +
-  coord_equal(xlim = c(144.10, 145.75),
+  coord_equal(xlim = c(144.10, 145.60),
               ylim = c(-38.75, -37.25)) +
   transition_time(DATE) +
   theme_void() +
-  theme(text = element_text(family = "Arial Nova"),
-        plot.title = element_text(face = "bold", size = 14))
+  theme(text = element_text(family = "Arial Nova",
+                            size = 14),
+        plot.title = element_text(face = "bold", size = 18))
 
 animate(gg_MelbMetro_cases_by_LGA,
         height = 750, width = 750,
         nframes = total_frames,
-        fps = 3,
+        fps = frames_ps,
         end_pause = end_frames)
 
-anim_save("cases by lga greater metro.gif")
+anim_save("Cases by LGA Greater Metro.gif")
 
 beep(8)
